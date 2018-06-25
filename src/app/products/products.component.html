@@ -1,0 +1,42 @@
+There are {{totalInStock()}} mobiles in stock.
+<table border="1">
+    <tr>
+        <th [attr.colspan]="1+1">Subjects</th>
+    </tr>
+    <tr>
+        <td>Maths</td>
+        <td>Science</td>
+    </tr>
+</table>
+
+<ul>
+    <li *ngFor="let product of (products | filterByStock) | slice:0:3" class="product-item" [ngClass]="{ 'in-stock': (product.inStock > 0), 'featured': product.featured }">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="img">
+                    <img class="img-responsive" [src]="product.image" width="200" height="200" />
+                </div>
+            </div>
+            <div class="col-md-10">
+                <h1>
+                    <a routerLink="/products/{{product.id}}">{{product.name | uppercase}}</a>
+                </h1>
+                <p style="background-color: #fff;" [style.color]="product.featured ? 'gray' : 'red'">{{product.desc | slice:0}}</p>
+                <p class="price">{{product.price | currency:'INR'}}</p>
+                <p *ngIf="product.inStock > 0;then instock;else outofstock">
+                    This will not be displayed
+                </p>
+                <ng-template #instock>{{product.inStock}} in stock</ng-template>
+                <ng-template #outofstock>Out of stock</ng-template>
+                <p>{{date | date:'short'}}</p>
+                <div>
+                    <button class="btn btn-primary" id="myid" (click)="downQuantity($event, product)">-</button>
+                    <input type="text" [value]="product.quantity" (input)="product.quantity = $event.target.value">
+                    <input type="text" [(ngModel)]="product.quantity">
+                    <button class="btn btn-primary" (click)="upQuantity(product)">+</button>
+                </div>
+                <button class="btn btn-primary" [disabled]="product.inStock < 1">Add to Cart</button>
+            </div>
+        </div>
+    </li>
+</ul>

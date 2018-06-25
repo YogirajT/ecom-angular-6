@@ -1,0 +1,12 @@
+<h1>
+    {{product.name}}
+</h1>
+
+<app-review-form></app-review-form>
+
+
+<br/>
+<br/>
+<button [@zoom]="state" (click)="toggleState()" class="btn btn-success">Toggle Me!</button>
+<button *ngIf="estate" [@enterExit] class="btn btn-success">Toggle Me!</button>
+<button (click)="toggleEState()" class="btn btn-success">Toggle Enter Exit</button>

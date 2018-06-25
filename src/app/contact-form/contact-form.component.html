@@ -1,0 +1,22 @@
+<div class="container">
+    <form [formGroup]="contactForm">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control" formControlName="name" /> {{name.valid}}
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" formControlName="email" /> {{email.valid}}
+        </div>
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" class="form-control" formControlName="subject" />
+        </div>
+        <div class="form-group">
+            <label for="body">Body</label>
+            <input type="text" id="body" class="form-control" formControlName="body" />
+        </div>
+        {{contactForm.value | json}} {{contactForm.status | json}}
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+</div>

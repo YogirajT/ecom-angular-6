@@ -1,0 +1,31 @@
+<div class="container">
+    <form #reviewForm="ngForm" (ngSubmit)="reviewForm.valid && onSubmit()">
+        <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" class="form-control" id="author" [(ngModel)]="reviewModel.author" name="author" required #author="ngModel" />
+            <div class="alert alert-danger" *ngIf="author.dirty && author.invalid">
+                Author cannot be blank.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" [(ngModel)]="reviewModel.email" name="email" required email #email="ngModel" />
+            <div class="alert alert-danger" *ngIf="email.dirty && email.invalid">
+                <span *ngIf="email.errors.required">Email cannot be blank.</span>
+                <span *ngIf="!email.errors.required && email.errors.email">Please enter valid email.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="body">Rating</label>
+            <select class="form-control" name="rating" id="rating" [(ngModel)]="reviewModel.rating" name="rating" required>
+              <option [value]="rating" *ngFor="let rating of ratings">{{rating}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="body">Comment</label>
+            <input type="text" class="form-control" id="body" [(ngModel)]="reviewModel.body" name="body" />
+        </div>
+        {{reviewModel | json}} {{reviewForm.valid}}
+        <button type="submit" class="btn btn-success" [disabled]="reviewForm.invalid">Submit</button>
+    </form>
+</div>
